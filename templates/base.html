@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}timeline{% end %}</title>
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/reset-min.css')}}">
+
+    <script type="text/javascript" src="{{static_url('js/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{static_url('js/sha1.js')}}"></script>
+    {% block extra_css %}{% end %}
+    {% block extra_js %}{% end %}
+  </head>
+  <body>
+    <div id="hd"></div>
+    <div id="bd">
+      {{ show_flash() }}
+      {% block body %}lorem ipsum{% end %}
+    </div> <!-- bd -->
+    <div id="ft">
+      {% if current_user %}
+      you are logged in as <strong>{{ escape(current_user.name) }}</strong>: <a href="/logout">logout</a>
+      {% end %}
+    </div>
+  </body>
+</html>
+

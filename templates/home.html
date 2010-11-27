@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+timeline page
+{% end %}
+
+{% block body %}
+<h1>timeline</h1>
+{% if not current_user %}
+<div>
+  click <a href="/login">here</a> to login or create an account.
+</div>
+{% end %}
+{% if current_user %}
+<div id="blanket" style="display:none;"></div>
+
+<!--
+<form>
+  {{xsrf_form_html()}}
+  <label for="name">I want</label>
+  <input type="text" id="terms" name="terms">
+  <label for="near">near:</label>
+  <input type="text" id="near" name="near" value="706 Mission, SF">
+  <input type="submit" value="haw" id="search">
+</form>
+<br>
+-->
+
+{% end %}
+
+{% end %}
+
