@@ -102,3 +102,22 @@ class User(Base):
                 return user
         return None
 
+class Event(Base):
+    __tablename__ = 'event'
+    id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+    timestamp = Column(DateTime, nullable=False)
+    details = Column(String, nullable=True)
+
+    @classmethod
+    def create(cls, name, timestamp, details):
+        return cls.new(name=name, timestamp=timestamp, details=details)
+
+    @classmethod
+    def list(cls, start_time, end_time):
+        return cls.select(Event.timestamp >= start_time and Event.timestamp <= end_time)
+        
+
+
+
+

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+event
+{% end %}
+{% block body %}
+<form action="/event/new" method=POST>
+		{{xsrf_form_html()}}
+		<label for="event_name">event name: </label>
+		<input type="text" id="event_name" name="event_name"> <br>
+</form>
+{% end %}
+

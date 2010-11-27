@@ -13,6 +13,11 @@ timeline page
 {% end %}
 {% if current_user %}
 <div id="blanket" style="display:none;"></div>
+<div id="events_list">
+    {% for event in events_list %}
+        <ul>{{ event.name }}</ul>
+    {% end %}
+</div>
 
 <!--
 <form>

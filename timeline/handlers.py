@@ -100,6 +100,9 @@ def get_application(**extra):
 class HomeHandler(RequestHandler):
 
     path = '/'
+    def initialize(self):
+        super(HomeHandler, self).initialize()
+        self.env['events_list'] = db.Event.list(start_time=0, end_time=datetime.datetime.now())
 
     def get(self):
         self.render('home.html')
@@ -143,4 +146,18 @@ class LogoutHandler(RequestHandler):
     def get(self):
         self.clear_cookie('s')
         self.redirect('/')
+
+class EventCreateHandler(RequestHandler):
+    path = '/event/new'
+
+    def get(self):
+        self.render('event.html')
+
+    def post(self):
+        event_name = self.get_argument('event_name', None)
+        timestamp = self.get_argument('timestamp', datetime.datetime.now())
+        details = self.get_argument('details', None)
+
+        db.Event.create(event_name, timestamp, details)
+
 
