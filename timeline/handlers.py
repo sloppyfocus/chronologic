@@ -102,7 +102,9 @@ class HomeHandler(RequestHandler):
     path = '/'
     def initialize(self):
         super(HomeHandler, self).initialize()
-        self.env['events_list'] = db.Event.list(start_time=0, end_time=datetime.datetime.now())
+        one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+        self.env['events_list'] = db.Event.list_by_minute(start_time=one_hour_ago, end_time=datetime.datetime.now())
+        print self.env['events_list']
 
     def get(self):
         self.render('home.html')
@@ -152,6 +154,7 @@ class EventCreateHandler(RequestHandler):
 
     def get(self):
         self.render('event.html')
+        self.redirect('/')
 
     def post(self):
         event_name = self.get_argument('event_name', None)

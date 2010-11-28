@@ -4,6 +4,7 @@ import json
 
 import datetime
 import sqlalchemy
+from collections import defaultdict
 from sqlalchemy import Table, Column, Integer, String, Text, DateTime, MetaData, ForeignKey, Boolean
 from sqlalchemy.orm import sessionmaker, relation
 from sqlalchemy.ext.declarative import declarative_base
@@ -115,7 +116,18 @@ class Event(Base):
 
     @classmethod
     def list(cls, start_time, end_time):
+        "Lists all events newer than start_time and older than end_time"
         return cls.select(Event.timestamp >= start_time and Event.timestamp <= end_time)
+
+    @classmethod
+    def list_by_minute(cls, start_time, end_time):
+        """Lists all events newer than start time and older than end_time
+        grouped by YMDHM"""
+        d = defaultdict(list)
+        for e in cls.list(start_time, end_time):
+            d[e.timestamp.strftime("%Y-%m-%d %H:%M")].append(e)
+        return [(i, j) for i, j in d.iteritems()]
+
         
 
 

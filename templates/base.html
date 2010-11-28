@@ -3,6 +3,8 @@
   <head>
     <title>{% block title %}timeline{% end %}</title>
     <link rel="stylesheet" type="text/css" href="{{static_url('css/reset-min.css')}}">
+    <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Molengo&subset=latin'>
+    <link rel="stylesheet" type="text/css" href="{{static_url('css/main.css')}}">
 
     <script type="text/javascript" src="{{static_url('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{static_url('js/sha1.js')}}"></script>
@@ -14,7 +16,7 @@
     <div id="bd">
       {{ show_flash() }}
       {% block body %}lorem ipsum{% end %}
-    </div> <!-- bd -->
+    </div> 
     <div id="ft">
       {% if current_user %}
       you are logged in as <strong>{{ escape(current_user.name) }}</strong>: <a href="/logout">logout</a>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-timeline page
+timeline
 {% end %}
 
 {% block body %}
@@ -12,10 +12,15 @@ timeline page
 </div>
 {% end %}
 {% if current_user %}
-<div id="blanket" style="display:none;"></div>
+<h2> Events List </h2>
 <div id="events_list">
-    {% for event in events_list %}
-        <ul>{{ event.name }}</ul>
+    {% for event_tup in events_list %}
+				<div class=dates>
+				{{ event_tup[0] }}
+				{% for event in event_tup[1] %}
+						<ul class=events>{{event.name}}</ul>
+				{% end %}
+				</div>
     {% end %}
 </div>
 
