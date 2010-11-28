@@ -15,3 +15,7 @@ legend { font-weight: bold; }
 
 .dates { font-weight: bold; border-top: 1px dotted; margin-top: 1em; }
 .events { font-weight: normal;  }
+
+.hoverable:hover { background: #c6daf4 ; cursor:pointer; }
+
+.details { display: none; }

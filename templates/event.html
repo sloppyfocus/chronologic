@@ -5,9 +5,12 @@ event
 {% end %}
 {% block body %}
 <form action="/event/new" method=POST>
-		{{xsrf_form_html()}}
-		<label for="event_name">event name: </label>
-		<input type="text" id="event_name" name="event_name"> <br>
+  {{xsrf_form_html()}}
+  <label for="event_name">event name: </label>
+  <input type="text" id="event_name" name="event_name"> <br>
+  <label for="details">event details: </label>
+  <input type="text" id="details" name="details"> <br>
+  <input type="submit" value="submit">
 </form>
 {% end %}
 

@@ -154,13 +154,13 @@ class EventCreateHandler(RequestHandler):
 
     def get(self):
         self.render('event.html')
-        self.redirect('/')
 
     def post(self):
         event_name = self.get_argument('event_name', None)
         timestamp = self.get_argument('timestamp', datetime.datetime.now())
         details = self.get_argument('details', None)
-
         db.Event.create(event_name, timestamp, details)
+        self.redirect('/')
+
 
 

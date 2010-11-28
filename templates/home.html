@@ -14,14 +14,19 @@ timeline
 {% if current_user %}
 <h2> Events List </h2>
 <div id="events_list">
-    {% for event_tup in events_list %}
-				<div class=dates>
-				{{ event_tup[0] }}
-				{% for event in event_tup[1] %}
-						<ul class=events>{{event.name}}</ul>
-				{% end %}
-				</div>
-    {% end %}
+  {% for event_tup in events_list %}
+    <div class="dates">
+      {{ event_tup[0] }}
+      {% for event in event_tup[1] %}
+        <ul class="events hoverable">
+          {{event.name}}
+          {% if event.details is not None %}
+            <div class="details">{{event.details}}</div>
+          {% end %}
+        </ul>
+      {% end %}
+    </div>
+  {% end %}
 </div>
 
 <!--
