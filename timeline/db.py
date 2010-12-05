@@ -6,10 +6,10 @@ import datetime
 import sqlalchemy
 from collections import defaultdict
 from sqlalchemy import Table, Column, Integer, String, Text, DateTime, MetaData, ForeignKey, Boolean
-from sqlalchemy.orm import sessionmaker, relation
+from sqlalchemy.orm import sessionmaker, relation, backref, mapper
 from sqlalchemy.ext.declarative import declarative_base
+import sqlalchemy.orm
 
-#Session = sessionmaker(autocommit=True)
 Session = sessionmaker(autocommit=False)
 session = None
 metadata = MetaData()
@@ -29,6 +29,7 @@ class _Base(object):
 
     @classmethod
     def _select(cls, *filters):
+        print filters
         q = session.query(cls)
         for f in filters:
             q = q.filter(f)
@@ -103,12 +104,17 @@ class User(Base):
                 return user
         return None
 
+EventTag = Table('event_tag', metadata, 
+    Column('event_id', Integer, ForeignKey('event.id')),
+    Column('tag_id', Integer, ForeignKey('tag.id')))
+
 class Event(Base):
     __tablename__ = 'event'
     id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     timestamp = Column(DateTime, nullable=False)
     details = Column(String, nullable=True)
+    tags = relation("Tag", secondary=EventTag, backref='tag')
 
     @classmethod
     def create(cls, name, timestamp, details):
@@ -128,8 +134,15 @@ class Event(Base):
             d[e.timestamp.strftime("%Y-%m-%d %H:%M")].append(e)
         return [(i, j) for i, j in d.iteritems()]
 
-        
+class Tag(Base):
+    __tablename__ = 'tag'
+    id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
 
+    @classmethod
+    def create(cls, name):
+        return cls.new(name=name)
 
-
+    def get_posts(self):
+        return Event.select(Event.tags.any(Tag.id==self.id))
 

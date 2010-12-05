@@ -162,5 +162,35 @@ class EventCreateHandler(RequestHandler):
         db.Event.create(event_name, timestamp, details)
         self.redirect('/')
 
+class TagCreateHandler(RequestHandler):
+    path = '/tag/new'
 
+    def get(self):
+        self.render('tag.html')
 
+    def post(self):
+        tag_name = self.get_argument('tag_name')
+        db.Tag.create(tag_name)
+        self.redirect('/')
+
+class AddTagToEventHandler(RequestHandler):
+    path = '/tag/add'
+
+    def get(self):
+        self.render('add_tag.html')
+
+    def post(self):
+        tag_id = self.get_argument('tag_id', None)
+        event_id = self.get_argument('event_id', None)
+        db.EventTag.create(event_id, tag_id)
+        self.redirect('/')
+
+class TagsForEventHandler(RequestHandler):
+    path = '/tag/list/.*'
+
+    def get(self):
+        event_id = self.request.uri.split('/')[-1]
+        garply = db.EventTag.list_tags_for_event_id(event_id)
+        f = garply[0]
+        g = f.join(db.Tag)
+        print g
