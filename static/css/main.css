@@ -18,4 +18,4 @@ legend { font-weight: bold; }
 
 .hoverable:hover { background: #c6daf4 ; cursor:pointer; }
 
-.details { display: none; }
+.extra{ display: none; }

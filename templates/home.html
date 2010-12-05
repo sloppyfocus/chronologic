@@ -20,10 +20,17 @@ timeline
       {% for event in event_tup[1] %}
         <ul class="events hoverable">
           {{event.name}}
-          {% if event.details is not None %}
-            <div class="details">{{event.details}}</div>
-          {% end %}
-					<div class="tags"></div>
+          <div class=extra>
+            {% if event.details is not None %}
+                <div class="details">Details: {{event.details}}</div>
+            {% end %}
+            <div class="tags">
+                Tags:
+                {% for tag in event.tags %}
+                <ul>{{ tag.name }}</ul>
+                {% end %}
+            </div>
+        </div>
         </ul>
       {% end %}
     </div>

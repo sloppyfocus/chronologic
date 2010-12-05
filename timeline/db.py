@@ -29,7 +29,6 @@ class _Base(object):
 
     @classmethod
     def _select(cls, *filters):
-        print filters
         q = session.query(cls)
         for f in filters:
             q = q.filter(f)

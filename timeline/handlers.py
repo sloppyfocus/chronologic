@@ -104,7 +104,6 @@ class HomeHandler(RequestHandler):
         super(HomeHandler, self).initialize()
         one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
         self.env['events_list'] = db.Event.list_by_minute(start_time=one_hour_ago, end_time=datetime.datetime.now())
-        print self.env['events_list']
 
     def get(self):
         self.render('home.html')
@@ -182,15 +181,5 @@ class AddTagToEventHandler(RequestHandler):
     def post(self):
         tag_id = self.get_argument('tag_id', None)
         event_id = self.get_argument('event_id', None)
-        db.EventTag.create(event_id, tag_id)
+        db.Event.by_id(event_id).tags.append(db.Tag.by_id(tag_id))
         self.redirect('/')
-
-class TagsForEventHandler(RequestHandler):
-    path = '/tag/list/.*'
-
-    def get(self):
-        event_id = self.request.uri.split('/')[-1]
-        garply = db.EventTag.list_tags_for_event_id(event_id)
-        f = garply[0]
-        g = f.join(db.Tag)
-        print g
