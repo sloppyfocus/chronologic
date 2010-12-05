@@ -1,6 +1,11 @@
-html { font-family: sans-serif; margin: 1em; }
+html { 
+		font-family: sans-serif; margin: 1em; 
+	 	background: #FFF url('/static/johnny_automatic_morning_cup.jpg') no-repeat fixed bottom right ;
+}
 h1 { font-weight: bold; font-size: 5em; font-family: 'Molengo'; }
 h2 { font-weight: bold; font-size: 120%; }
+
+body { }
 
 #ft { font-size: 93%; color: #444; }
 

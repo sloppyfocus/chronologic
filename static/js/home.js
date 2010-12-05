@@ -1,5 +1,5 @@
 $(document).ready(function() {
-		$(".events").click(function() {
-				$(this).find(".extra").toggle("fast");
-		});
+    $(".events").click(function() {
+        $(this).find(".extra").toggle("fast");
+    });
 });

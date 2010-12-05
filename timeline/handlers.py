@@ -155,9 +155,9 @@ class EventCreateHandler(RequestHandler):
         self.render('event.html')
 
     def post(self):
-        event_name = self.get_argument('event_name', None)
+        event_name = xhtml_escape(self.get_argument('event_name', None))
         timestamp = self.get_argument('timestamp', datetime.datetime.now())
-        details = self.get_argument('details', None)
+        details = xhtml_escape(self.get_argument('details', None))
         db.Event.create(event_name, timestamp, details)
         self.redirect('/')
 

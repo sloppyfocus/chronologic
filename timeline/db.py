@@ -131,7 +131,7 @@ class Event(Base):
         d = defaultdict(list)
         for e in cls.list(start_time, end_time):
             d[e.timestamp.strftime("%Y-%m-%d %H:%M")].append(e)
-        return [(i, j) for i, j in d.iteritems()]
+        return reversed(sorted([(i, j) for i, j in d.iteritems()]))
 
 class Tag(Base):
     __tablename__ = 'tag'
